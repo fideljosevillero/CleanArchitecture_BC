@@ -26,7 +26,7 @@ public class Handler {
 //    									.number("number").build());
 //    									
 //        return ServerResponse.ok().body(accountRQ, AccountRQ.class);
-    	Flux<AccountRS> resp = balanceAndDetailsUseCase.getBalanceAndMovement();
+    	Mono<AccountRS> resp = balanceAndDetailsUseCase.getBalanceAndMovement();
     	
     	return ServerResponse
                 .ok()

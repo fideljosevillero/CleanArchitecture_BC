@@ -16,7 +16,7 @@ public class Router {
 	@Bean
 	public RouterFunction<ServerResponse> routerFunction(Handler handler) {
 		return  route(
-	            POST("/prueba")
+	            POST("/BalanceAndDetails")
 	                    .and(accept(MediaType.APPLICATION_JSON))
 	                    .and(contentType(MediaType.APPLICATION_JSON)), 
 	                    handler::listenGETUseCase);

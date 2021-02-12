@@ -15,12 +15,7 @@ public class RestConsumerConfig {
 	
     @Value("${adapter.restconsumer.url}")
     private String url;
-    
-    @Bean
-    public AccountRQGateway accountRQGateway() {
-    	return new BalanceAdapter();
-    }
-    
+
     @Bean
     public BalanceAndDetailsUseCase balanceAndDetailsUseCase(AccountRQGateway accountRQGateway) {
     	return new BalanceAndDetailsUseCase(accountRQGateway);

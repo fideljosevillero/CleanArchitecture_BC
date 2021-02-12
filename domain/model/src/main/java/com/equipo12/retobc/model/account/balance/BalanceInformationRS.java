@@ -1,6 +1,6 @@
 package com.equipo12.retobc.model.account.balance;
 
-import java.util.List;
+import com.equipo12.retobc.model.account.balance.AccountRS.AccountRSBuilder;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountRS {
-//   private BalanceRS balances;
-	private List<DataRS> data;
-
+public class BalanceInformationRS {
+	
+	private String available;
+	private String unavailableClearing;
+	private String pockets;
+	
 }
