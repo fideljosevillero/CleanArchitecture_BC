@@ -19,7 +19,7 @@ public class Router {
 	            POST("/BalanceAndDetails")
 	                    .and(accept(MediaType.APPLICATION_JSON))
 	                    .and(contentType(MediaType.APPLICATION_JSON)), 
-	                    handler::listenGETUseCase);
+	                    handler::getBalanceHandler);
 	}
 	
 }

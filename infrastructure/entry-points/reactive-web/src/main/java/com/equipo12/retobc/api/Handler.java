@@ -7,10 +7,11 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.equipo12.retobc.model.account.balance.AccountRS;
-import com.equipo12.retobc.usecase.usecase.BalanceAndDetailsUseCase;
+import com.equipo12.retobc.model.movement.Movement;
+import com.equipo12.retobc.usecase.movement.MovementUseCase;
+import com.equipo12.retobc.usecase.usecase.BalanceUseCase;
 
 import lombok.AllArgsConstructor;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -18,15 +19,14 @@ import reactor.core.publisher.Mono;
 public class Handler {
 
 	@Autowired
-	BalanceAndDetailsUseCase balanceAndDetailsUseCase;
+	BalanceUseCase balanceAndDetailsUseCase;
 	
-    public Mono<ServerResponse> listenGETUseCase(ServerRequest serverRequest) {
-//    	Mono<AccountRQ> accountRQ = Mono.just(AccountRQ.builder()
-//    									.type("type")
-//    									.number("number").build());
-//    									
-//        return ServerResponse.ok().body(accountRQ, AccountRQ.class);
-    	Mono<AccountRS> resp = balanceAndDetailsUseCase.getBalanceAndMovement();
+	@Autowired
+	MovementUseCase movementUseCase;
+	
+    public Mono<ServerResponse> getBalanceHandler(ServerRequest serverRequest) {
+    	Mono<AccountRS> resp = balanceAndDetailsUseCase.getBalanceUC();
+//    	Mono<Movement> resp = movementUseCase.getMovememtUC();
     	
     	return ServerResponse
                 .ok()

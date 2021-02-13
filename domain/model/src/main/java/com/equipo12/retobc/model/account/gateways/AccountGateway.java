@@ -4,7 +4,8 @@ import com.equipo12.retobc.model.account.balance.AccountRS;
 
 import reactor.core.publisher.Mono;
 
-public interface AccountRQGateway {
+public interface AccountGateway {
 
    public Mono<AccountRS> getBalance();
+   
 }
