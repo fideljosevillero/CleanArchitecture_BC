@@ -1,6 +1,6 @@
 package com.equipo12.retobc.usecase.movement;
 
-import com.equipo12.retobc.model.movement.Movement;
+import com.equipo12.retobc.model.movement.MovementRS;
 import com.equipo12.retobc.model.movement.gateways.MovementGateway;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ public class MovementUseCase {
 
 	private MovementGateway movementGateway;
 	
-	public Mono<Movement> getMovememtUC(){
+	public Mono<MovementRS> getMovememtUC(){
 		return movementGateway.getMovement();
 	}
 	
