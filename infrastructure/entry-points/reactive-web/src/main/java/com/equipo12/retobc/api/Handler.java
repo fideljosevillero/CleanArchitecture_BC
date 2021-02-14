@@ -25,13 +25,13 @@ public class Handler {
 	MovementUseCase movementUseCase;
 	
     public Mono<ServerResponse> getBalanceHandler(ServerRequest serverRequest) {
-    	Mono<AccountRS> resp = balanceAndDetailsUseCase.getBalanceUC();
-//    	Mono<Movement> resp = movementUseCase.getMovememtUC();
+//    	Mono<AccountRS> resp = balanceAndDetailsUseCase.getBalanceUC();
+    	Mono<Movement> resp = movementUseCase.getMovememtUC();
     	
     	return ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(resp, AccountRS.class);
+                .body(resp, Movement.class);
     }
 
 }

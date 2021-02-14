@@ -20,7 +20,7 @@ public class BalanceAdapter implements AccountGateway {
 	public Mono<AccountRS> getBalance() {		
 		return webClient
                 .post()
-                .uri("https://young-tree-722.getsandbox.com:443/prueba")
+                .uri("https://young-tree-722.getsandbox.com:443/balance")
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(AccountRS.class);
