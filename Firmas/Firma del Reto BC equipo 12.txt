@@ -1,0 +1,92 @@
+FIRMA Retrieve Transaction
+* Request
+{
+  "pagination": {
+  	"size": 17,
+	"key": 1
+  },
+  "account": {
+  	"type": "CUENTA_DE_AHORRO",
+	"number": "406-700014-41"
+  },
+  "transaction": {
+  	"startDate": "17-08-2020",
+	"endDate": "17-08-2021",
+	"minAmount": 100.0000,
+	"maxAmount": 10000000.0000,
+	"type": "DEBITO",
+	"checkNumber": "123456789010121314",
+	"group": "consignaciones",
+	"description": "Una descripción cualquiera"
+  },
+  "office": {
+  	"code": "0007",
+	"name": "Bancolombia"
+  } 
+}
+
+* Response	
+{
+	"_responseSize": 10,
+	"_flagMoreRecords": false,
+	"transaction": [{
+		"id": "0007",
+		"postedDate": "17-08-2020",
+		"description": "Descripción cualquiera",
+		"amount": 2500,
+		"type": "DEBITO",
+		"reference1": "1104877855",
+		"reference2": "FAC987766",
+		"reference3": "FAC987766",
+		"checkNumber": "8975446757869098",
+		"office": {
+			"code": "0512345",
+			"name": "officeName"
+		},
+		"relatedTransferAccount": {
+			"type": "CUENTA_DE_AHORRO",
+			"number": "406-700014-41"
+		},
+		"customer": {
+			"name": "Fidel Jose Villero de Hoyos"
+		}
+
+	}]
+}
+
+
+Retrieve Balance
+* Request
+{
+	"account": {
+		"type": "CUENTA_DE_AHORRO",
+		"number": "406-700014-41"
+	}
+}
+
+* Response
+{
+	"account": {
+		"balances": {
+			"available": 1000000.0000,
+			"availableOverdraftBalance": 100000000.0000,
+			"overdraftValue": 100000.0000,
+			"availableOverdraftQuota": 90000.0000,
+			"cash": 12000000.0000,
+			"unavailable_clearing": 400000.0000,
+			"receivable": 5000000.0000,
+			"blocked": 10000.0000,
+			"unavailableStartDay_clearingStartDay": 100000.0000,
+			"cashStartDay": 1000000.0000,
+			"pockets": 12000000.0000,
+			"remittanceQuota": 100000.0000,
+			"agreedRemittanceQuota": 200000.0000,
+			"remittanceQuotaUsage": 200000.0000,
+			"normalInterest": 4.5000,
+			"suspensionInterest": 7.5000
+		}
+	}
+}
+
+* Response
+
