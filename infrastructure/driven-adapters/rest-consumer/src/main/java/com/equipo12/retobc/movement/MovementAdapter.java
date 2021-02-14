@@ -5,7 +5,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.equipo12.retobc.model.account.balance.AccountRS;
 import com.equipo12.retobc.model.movement.Movement;
 import com.equipo12.retobc.model.movement.gateways.MovementGateway;
 

@@ -1,6 +1,4 @@
-package com.equipo12.retobc.model.account.balance;
-
-import java.util.List;
+package com.equipo12.retobc.model.balance;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountRS {
-//   private BalanceRS balances;
-	private List<DataRS> data;
+public class RequestBalance {
 
+	private AccountRS account;
+	
 }

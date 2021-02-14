@@ -1,4 +1,4 @@
-package com.equipo12.retobc.model.account;
+package com.equipo12.retobc.model.balance;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

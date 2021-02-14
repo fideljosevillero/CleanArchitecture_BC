@@ -1,7 +1,7 @@
 package com.equipo12.retobc.usecase.usecase;
 
-import com.equipo12.retobc.model.account.balance.AccountRS;
-import com.equipo12.retobc.model.account.gateways.AccountGateway;
+import com.equipo12.retobc.model.balance.RequestBalance;
+import com.equipo12.retobc.model.balance.gateways.BalanceGateway;
 
 import lombok.AllArgsConstructor;
 import reactor.core.publisher.Mono;
@@ -9,9 +9,9 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 public class BalanceUseCase {
 	
-	private AccountGateway accountRQGateway;
+	private BalanceGateway accountRQGateway;
 	
-	public Mono<AccountRS> getBalanceUC(){
+	public Mono<RequestBalance> getBalanceUC(){
 		return accountRQGateway.getBalance();
 	}
 	

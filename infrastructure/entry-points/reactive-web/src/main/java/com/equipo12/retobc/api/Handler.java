@@ -6,8 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import com.equipo12.retobc.model.account.balance.AccountRS;
-import com.equipo12.retobc.model.movement.Movement;
+import com.equipo12.retobc.model.balance.RequestBalance;
 import com.equipo12.retobc.usecase.movement.MovementUseCase;
 import com.equipo12.retobc.usecase.usecase.BalanceUseCase;
 
@@ -19,19 +18,19 @@ import reactor.core.publisher.Mono;
 public class Handler {
 
 	@Autowired
-	BalanceUseCase balanceAndDetailsUseCase;
+	BalanceUseCase balanceUseCase;
 	
 	@Autowired
 	MovementUseCase movementUseCase;
 	
     public Mono<ServerResponse> getBalanceHandler(ServerRequest serverRequest) {
-//    	Mono<AccountRS> resp = balanceAndDetailsUseCase.getBalanceUC();
-    	Mono<Movement> resp = movementUseCase.getMovememtUC();
+    	Mono<RequestBalance> resp = balanceUseCase.getBalanceUC();
+//    	Mono<Movement> resp = movementUseCase.getMovememtUC();
     	
     	return ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(resp, Movement.class);
+                .body(resp, RequestBalance.class);
     }
 
 }

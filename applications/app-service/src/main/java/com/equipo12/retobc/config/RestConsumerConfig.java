@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.equipo12.retobc.model.account.gateways.AccountGateway;
+import com.equipo12.retobc.model.balance.gateways.BalanceGateway;
 import com.equipo12.retobc.model.movement.gateways.MovementGateway;
 import com.equipo12.retobc.usecase.movement.MovementUseCase;
 import com.equipo12.retobc.usecase.usecase.BalanceUseCase;
@@ -18,7 +18,7 @@ public class RestConsumerConfig {
     private String url;
 
     @Bean
-    public BalanceUseCase balanceUseCase(AccountGateway accountRQGateway) {
+    public BalanceUseCase balanceUseCase(BalanceGateway accountRQGateway) {
     	return new BalanceUseCase(accountRQGateway);
     }
     
