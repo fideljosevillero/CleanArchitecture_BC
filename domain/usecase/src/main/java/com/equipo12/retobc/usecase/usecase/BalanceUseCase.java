@@ -1,5 +1,6 @@
 package com.equipo12.retobc.usecase.usecase;
 
+import com.equipo12.retobc.model.balance.AccountRQ;
 import com.equipo12.retobc.model.balance.RequestBalance;
 import com.equipo12.retobc.model.balance.gateways.BalanceGateway;
 
@@ -11,8 +12,8 @@ public class BalanceUseCase {
 	
 	private BalanceGateway accountRQGateway;
 	
-	public Mono<RequestBalance> getBalanceUC(){
-		return accountRQGateway.getBalance();
+	public Mono<RequestBalance> getBalanceUC(AccountRQ accountRQ){
+		return accountRQGateway.getBalance(accountRQ);
 	}
 	
 }

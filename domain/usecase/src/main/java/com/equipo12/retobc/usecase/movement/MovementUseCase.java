@@ -7,9 +7,6 @@ import com.equipo12.retobc.model.movement.gateways.MovementGateway;
 import lombok.AllArgsConstructor;
 import reactor.core.publisher.Mono;
 
-//import lombok.RequiredArgsConstructor;
-
-//@RequiredArgsConstructor
 @AllArgsConstructor
 public class MovementUseCase {
 
