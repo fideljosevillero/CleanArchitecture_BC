@@ -9,8 +9,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.equipo12.retobc.model.balance.gateways.BalanceGateway;
 import com.equipo12.retobc.model.movement.gateways.MovementGateway;
 import com.equipo12.retobc.usecase.balanceandmovement.BalanceAndMovementUseCase;
+import com.equipo12.retobc.usecase.balanceusecase.BalanceUseCase;
 import com.equipo12.retobc.usecase.movement.MovementUseCase;
-import com.equipo12.retobc.usecase.usecase.BalanceUseCase;
 
 @Configuration
 public class RestConsumerConfig {

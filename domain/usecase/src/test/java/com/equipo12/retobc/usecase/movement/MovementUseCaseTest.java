@@ -3,7 +3,6 @@ package com.equipo12.retobc.usecase.movement;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -97,7 +96,6 @@ public class MovementUseCaseTest {
 
         Mono<MovementRS> res = movementGateway.getMovement(movementRQ);
         assertNotNull(res);
-        res.subscribe();
 
     }
 	

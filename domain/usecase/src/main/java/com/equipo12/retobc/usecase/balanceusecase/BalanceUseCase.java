@@ -1,4 +1,4 @@
-package com.equipo12.retobc.usecase.usecase;
+package com.equipo12.retobc.usecase.balanceusecase;
 
 import com.equipo12.retobc.model.balance.AccountRQ;
 import com.equipo12.retobc.model.balance.RequestBalance;
