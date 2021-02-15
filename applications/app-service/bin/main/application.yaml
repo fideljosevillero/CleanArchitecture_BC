@@ -14,3 +14,5 @@ spring:
 adapter:
   restconsumer:
     url: "http://localhost:8080"
+routes:
+  uri_balanceAndMovement: balance-and-details
