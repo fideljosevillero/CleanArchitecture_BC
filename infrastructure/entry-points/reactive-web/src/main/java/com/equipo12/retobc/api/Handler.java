@@ -39,6 +39,17 @@ public class Handler {
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(respMovement, MovementRS.class);
+    	
+//    	return respMovement
+//    		      .flatMap(s -> ServerResponse.ok()
+//    		    	      .contentType(MediaType.TEXT_PLAIN)
+//    		    	          .bodyValue(s))
+//    	          .onErrorResume(e -> Mono.just("Error Personalizado - " + e.getMessage())
+//    	        		  .flatMap(s -> ServerResponse.ok()
+//    	        				  .contentType(MediaType.TEXT_PLAIN)
+//    	        				  .bodyValue(s)));
+    	
+
     }
 
 }

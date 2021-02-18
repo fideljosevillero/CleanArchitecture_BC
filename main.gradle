@@ -79,9 +79,6 @@ ext.libs = [
         rest: [
             "org.springframework:spring-web:${springBootVersion}"
         ],
-        sdk_sqs:[
-            "com.amazonaws:aws-java-sdk-sqs"
-        ],
         api_validation:[
             "javax.validation:validation-api:2.0.1.Final"
         ],
@@ -90,5 +87,8 @@ ext.libs = [
 			"org.mockito:mockito-core:2.8.9",
 			"org.powermock:powermock-module-junit4:1.6.4",
 			"junit:junit:4.12"
+        ],
+        jack:[
+            "com.fasterxml.jackson.core:jackson-annotations:2.10.0"
         ]
     ]

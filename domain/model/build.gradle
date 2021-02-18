@@ -1,0 +1,8 @@
+description = 'Modelo: Entidades del proyecto'
+
+dependencies {
+    testImplementation libs.unit_tests
+    implementation libs.jack
+    implementation libs.api_validation
+
+}

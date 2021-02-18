@@ -1,6 +1,7 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
+	implementation project(':helpers-reactive-commons')
 	implementation project(':rest-consumer')
 	compile 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation project(':reactive-rest-consumer')
