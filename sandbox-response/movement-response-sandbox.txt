@@ -1,0 +1,39 @@
+// Check the request, make sure it is a compatible type
+if (!req.is('application/json')) {
+    return res.send(400, 'Invalid content type, expected application/json');
+}
+
+// Set the type of response, sets the content type.
+res.type('application/json');
+
+// Set the status code of the response.
+res.status(200);
+
+// Send the response body.
+res.json({
+    "_responseSize": 10,
+    "_flagMoreRecords": false,
+    "transaction": [{
+        "id": "0007",
+        "postedDate": "17-08-2020",
+        "description": "Descripción cualquiera",
+        "amount": 2500,
+        "type": "DEBITO",
+        "reference1": "1104877855",
+        "reference2": "FAC987766",
+        "reference3": "FAC987766",
+        "checkNumber": "8975446757869098",
+        "office": {
+            "code": "0512345",
+            "name": "officeName"
+        },
+        "relatedTransferAccount": {
+            "type": "CUENTA_DE_AHORRO",
+            "number": "406-700014-41"
+        },
+        "customer": {
+            "name": "Fidel Jose Villero de Hoyos"
+        }
+
+    }]
+});

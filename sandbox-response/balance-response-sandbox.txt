@@ -1,0 +1,34 @@
+// Check the request, make sure it is a compatible type
+if (!req.is('application/json')) {
+    return res.send(400, 'Invalid content type, expected application/json');
+}
+
+// Set the type of response, sets the content type.
+res.type('application/json');
+
+// Set the status code of the response.
+res.status(200);
+
+// Send the response body.
+res.json({
+    "account": {
+        "balances": {
+            "available": 1000000.0000,
+            "availableOverdraftBalance": 100000000.0000,
+            "overdraftValue": 100000.0000,
+            "availableOverdraftQuota": 90000.0000,
+            "cash": 12000000.0000,
+            "unavailable_clearing": 400000.0000,
+            "receivable": 5000000.0000,
+            "blocked": 10000.0000,
+            "unavailableStartDay_clearingStartDay": 100000.0000,
+            "cashStartDay": 1000000.0000,
+            "pockets": 12000000.0000,
+            "remittanceQuota": 100000.0000,
+            "agreedRemittanceQuota": 200000.0000,
+            "remittanceQuotaUsage": 200000.0000,
+            "normalInterest": 4.5000,
+            "suspensionInterest": 7.5000
+        }
+    }
+});
