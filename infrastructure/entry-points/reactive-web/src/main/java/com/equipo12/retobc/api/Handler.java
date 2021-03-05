@@ -11,7 +11,7 @@ import com.equipo12.retobc.model.movement.MovementRQ;
 import com.equipo12.retobc.model.movement.MovementRS;
 import com.equipo12.retobc.usecase.balanceandmovement.BalanceAndMovementUseCase;
 import com.equipo12.retobc.usecase.balanceusecase.BalanceUseCase;
-import com.equipo12.retobc.usecase.movement.MovementUseCase;
+import com.equipo12.retobc.usecase.movementusecase.MovementUseCase;
 
 import lombok.AllArgsConstructor;
 import reactor.core.publisher.Mono;

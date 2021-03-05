@@ -1,0 +1,402 @@
+openapi: 3.0.0
+info:
+  title: "Retrieve Transactions"
+  description: "Capacidad que permite consultar los datos básicos de los movimientos realizados en una cuenta de ahorro o corriente durante un periodo de tiempo determinado, además de la sucursal y la cuenta asociada de acuerdo con el tipo de movimiento realizado."
+  version: 1.0.0
+servers:
+  - url: 'https://VisualStudioDoc....'
+
+tags:
+  - name: "Account - Transactions"
+    description: "Retrieve Transaction Details"
+
+paths:
+  #################################################################################
+  #  Transactions of Account
+  #################################################################################
+  /movement:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - "Movements"
+      summary: "Movimientos de una cuenta"
+      description: "Presenta informacion de los movimientos de una cuenta"
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: "application/json"
+          description: "Cabecera para indicar que el contenido a negociar es Json"
+          required: true
+
+      requestBody:
+        required: true
+        description: "Cuerpo de la petición"
+        content:
+          application/vnd.bancolombia.v2+json:
+            schema:
+              $ref: '#/components/schemas/movementsRequest'
+
+      responses:
+        200:
+          description: "TRANSACCIÓN EXITOSA"
+          content:
+            application/vnd.bancolombia.v2+json:
+              schema:
+                $ref: "#/components/schemas/movementsResponse"
+
+        default:
+          description: "Mensaje de error por defecto"
+          content:
+            application/vnd.bancolombia.v2+json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: object
+                    $ref: "#/components/schemas/Error"
+
+#################################################################################
+# COMPONENTS
+#################################################################################
+components:
+  securitySchemes:
+    bearerAuth:
+      type: "http"
+      scheme: "bearer"
+      bearerFormat: "JWT"
+
+  #################################################################################
+  # SCHEMES
+  #################################################################################
+  schemas:
+
+  #################################################################################
+  # Scheme Movements REQUEST
+  #################################################################################
+    movementsRequest:
+      type: object
+      description: "Informacion de los movimientos a consultar"
+      required:
+        - pagination
+        - account
+        - transaction
+      properties:
+        account:
+          type: object
+          properties:
+            pagination:
+              $ref: "#/components/schemas/pagination"
+            account:
+              $ref: "#/components/schemas/account"
+            transaction:
+              $ref: "#/components/schemas/transactionRequest"  
+
+  #################################################################################
+  # Scheme Movements RESPONSE
+  #################################################################################
+    movementsResponse:
+      type: object
+      required:
+        - _responseSize
+        - _flagMoreRecords
+        - transaction
+      properties:
+        _responseSize:
+          type: "string"
+          description: "Total de registros."
+          maxLength: 2
+          example: "20"
+        _flagMoreRecords:
+          type: "string"
+          description: "Indica si existen mas registros en la solicitud"
+          example: "true"
+        transaction:
+          $ref: "#/components/schemas/transactionResponse"
+        status:
+          $ref: "#/components/schemas/status"
+  #################################################################################
+  # Scheme PAGINATION
+  #################################################################################
+    pagination:
+      type: object
+      description: "Datos de paginación"
+      required:
+        - size
+        - key
+      properties:
+        size:
+          type: "string"
+          description: "Cantidad de registros por página."
+          maxLength: 2
+          example: "20"
+        key:
+          type: "string"
+          description: "Número de la página."
+          maxLength: 3
+          example: "1"        
+  #################################################################################
+  # Scheme ACCOUNT
+  #################################################################################
+    account:
+      type: object
+      description: "Información de la cuenta a la cual se le desean consultar los movimientos."
+      required:
+        - type
+        - number
+      properties:
+        type:
+          type: "string"
+          description: "Tipo de cuenta"
+          example: "CUENTA_DE_AHORRO"
+        number:
+          type: "string"
+          description: "Número de la cuenta"
+          maxLength: 16
+          example: "01530951240"
+  #################################################################################
+  # Scheme TRANSACTION REQUEST 
+  #################################################################################
+    transactionRequest:
+      type: "array"
+      description: "Información del movimiento a consultar."
+      uniqueItems: true
+      items:
+        required:
+          - startDate
+          - endDate
+        properties:
+          startDate:
+            type: "string"
+            description: "Fecha a partir de la cual se desean consultar los movimientos de la cuenta."
+            example: "CUENTA_DE_AHORRO"
+          endDate:
+            type: "string"
+            description: "Fecha hasta la cual se desean consultar los movimientos de la cuenta."
+            example: ""
+          minAmount:
+            type: "string"
+            description: "Valor a partir del cual se desean consultar los movimientos de la cuenta."
+            maxLength: 20
+            example: ""
+          maxAmount:
+            type: "string"
+            description: "Valor hasta el cual se desean consultar los movimientos de la cuenta."
+            maxLength: 20
+            example: ""
+          type:
+            type: "string"
+            description: "Tipo o naturaleza del movimiento por el cual se desea realizar la consulta."
+            example: ""
+          checkNumber:
+            type: "string"
+            description: "Corresponde al número de cheque en caso que el movimiento haya sido con cheque."
+            maxLength: 16
+            example: ""
+          group:
+            type: "string"
+            description: "Campo que permite filtrar la información de las transacciones de acuerdo con el grupo al que pertenece cada una de ellas, este grupo permite clasificar las transacciones por producto y tipo de operación.Ejemplo= consignaciones, comisiones, cheque"
+            maxLength: 2
+            example: ""
+          description:
+            type: "string"
+            description: "descripción del movimiento."
+            example: ""  
+          office:
+            $ref: "#/components/schemas/officeRequest"
+  #################################################################################
+  # Scheme OFFICE FOR REQUEST
+  #################################################################################
+    officeRequest:
+      type: object
+      required:
+        - code
+        - name
+      description: "Información de la sucursal"
+      properties:
+        code:
+          type: "string"
+          maxLength: 8
+          example: "12345678"
+          description: "Código de la oficina donde se realizó la transacción o de la oficina dueña de la cuenta a la que pertenece la transacción."
+        name:
+          type: "string"
+          maxLength: 50
+          description: "Nombre de la oficina donde se realizó la transacción o de la oficina dueña de la cuenta a la que pertenece la transacción."
+          example: "SERVICIOS ELECTR."
+  #################################################################################
+  # Scheme TRANSACTION RESPONSE
+  #################################################################################
+    transactionResponse:
+      type: "array"
+      description: "Información del movimiento"
+      uniqueItems: true
+      items:
+        required:
+          - id
+          - postedDate 
+          - description
+          - amount
+          - type
+        properties:
+          id:
+            type: "string"
+            maxLength: 6
+            example: "8316"
+            description: "código de la transacción que identifica el tipo de movimiento en depositos."
+          postedDate:
+            type: "string"
+            description: "Fecha efectiva en la cual se hace la afectación del saldo de la cuenta, puede ser de días anteriores."
+            example: "2020-03-01"
+          description:
+            type: "string"
+            maxLength: 50
+            description: "Descripción o nombre del movimiento"
+            example: "Abono preautorizado donación"
+          amount:
+            type: "number"
+            format: "float"
+            maxLength: 20
+            description: "Valor del movimiento"
+            example: "12,400.0000"
+          type:
+            type: "string"
+            description: "Tipo de movimiento, indica si la transacción es de naturaleza débito o crédito"
+            example: "DEBITO"
+          reference1:
+            type: "string"
+            maxLength: 50
+            description: "Texto libre que coloca el consumidor al realizar los movimientos en el cual puede indicar una referencia o valor útil para el cliente. Ejemplo= número de documento de identidad, código de una factura."
+            example: ""
+          reference2:
+            type: "string"
+            maxLength: 50
+            description: "Texto libre que coloca el consumidor al realizar los movimientos en el cual puede indicar una referencia o valor útil para el cliente. Ejemplo= número de documento de identidad, código de una factura."
+            example: ""
+          reference3:
+            type: "string"
+            maxLength: 50
+            description: "Texto libre que coloca el consumidor al realizar los movimientos en el cual puede indicar una referencia o valor útil para el cliente. Ejemplo= número de documento de identidad, código de una factura."
+            example: ""
+          checkNumber:
+            type: "string"
+            maxLength: 16
+            description: "Corresponde al número de cheque en caso tal que el movimiento haya sido CHEQUE."
+            example: "NULL"
+          office:
+            $ref: "#/components/schemas/officeResponse"
+          relatedTransferAccount:
+            $ref: "#/components/schemas/relatedTransferAccount"
+          customer:
+            $ref: "#/components/schemas/customer"
+  #################################################################################
+  # Scheme OFFICE FOR TRANSACTION RESPONSE
+  #################################################################################
+    officeResponse:
+      type: object
+      required:
+        - code
+        - name
+      description: "Información de la sucursal"
+      properties:
+        code:
+          type: "string"
+          maxLength: 8
+          example: "12345678"
+          description: "Código de la oficina donde se realizó la transacción o de la oficina dueña de la cuenta a la que pertenece la transacción."
+        name:
+          type: "string"
+          maxLength: 50
+          description: "Nombre de la oficina donde se realizó la transacción o de la oficina dueña de la cuenta a la que pertenece la transacción."
+          example: "SERVICIOS ELECTR."
+  #################################################################################
+  # Scheme RELATED TRANSFER ACCOUNT FOR TRANSACTION RESPONSE
+  #################################################################################
+    relatedTransferAccount:
+      type: object
+      required:
+        - type
+        - number
+      description: "Información de la cuenta relacionada, solo para transferencias"
+      properties:
+        type:
+          type: "string"
+          description: "Tipo de cuenta asociada al movimiento"
+          example: "CUENTA_DE_AHORRO"
+        number:
+          type: "string"
+          description: "Número de cuenta asociada al momvimiento"
+          example: "01530951240"
+          maxLength: 16
+  #################################################################################
+  # Scheme CUSTOMER FOR TRANSACTION RESPONSE
+  #################################################################################
+    customer:
+      type: object
+      required:
+        - name
+      description: "Información del cliente dueño de la cuenta destino cuando el movimiento fue transferencia"
+      properties:
+        name:
+          type: "string"
+          description: "Nombre del cliente titular de la cuenta asociada a la transferencia"
+          example: "Ramon Hoyos"
+          maxLength: 100
+  #################################################################################
+  # Scheme Status
+  #################################################################################
+    status:
+      type: object
+      description: "Estructura general de código de respuesta"
+      properties:
+        status:
+          description: 'Codigo status petición http'
+          type: string
+          example: "200"
+        code:
+          description: 'An application-specific error code, expressed as a string value.'
+          type: string
+          example: "000"
+        title:
+          description: 'A short, human-readable summary of the problem. It **SHOULD NOT** change from occurrence to occurrence of the problem, except for purposes of localization.'
+          type: string
+          example: TRANSACCION EXITOSA
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          type: string
+          example: TRANSACCION EXITOSA
+        severity:
+          description: Servity of error.
+          type: string
+          example: INFO
+  #################################################################################
+  # Scheme Error
+  #################################################################################
+    Error:
+      type: object
+      description: "Estructura general de errores"
+      properties:
+        status:
+          description: 'Codigo status petición http'
+          type: string
+          example: 400
+        code:
+          description: 'An application-specific error code, expressed as a string value.'
+          type: string
+          example: 400
+        title:
+          description: 'A short, human-readable summary of the problem. It **SHOULD NOT** change from occurrence to occurrence of the problem, except for purposes of localization.'
+          type: string
+          example: Lo sentimos, tenemos inconvenientes con nuestros sistemas,
+            nuestro equipo se encuentra trabajando para brindarte una solución.
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          type: string
+          example: Lo sentimos, tenemos inconvenientes con nuestros sistemas, nuestro equipo se encuentra trabajando
+            para brindarte una solución.
+        severity:
+          description: Servity of error.
+          type: string
+          example: ERROR

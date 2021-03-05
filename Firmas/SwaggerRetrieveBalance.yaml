@@ -1,0 +1,276 @@
+openapi: 3.0.0
+info:
+  title: "Retrieve Balances"
+  description: "Servicio que provee los saldos de una cuenta"
+  version: 1.0.0
+servers:
+  - url: 'https://VisualStudioDoc....'
+
+tags:
+  - name: "Account - Balances"
+    description: "Saldos de una cuenta"
+
+paths:
+  #################################################################################
+  #  Balance of Account
+  #################################################################################
+  /balance:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - "Balance"
+      summary: "Saldos de una cuenta"
+      description: "Presenta informacion de los saldos de una cuenta"
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: "application/json"
+          description: "Cabecera para indicar que el contenido a negociar es Json"
+          required: true
+
+      requestBody:
+        required: true
+        description: "Cuerpo de la petición"
+        content:
+          application/vnd.bancolombia.v2+json:
+            schema:
+              $ref: '#/components/schemas/balanceRequest'
+
+      responses:
+        200:
+          description: "TRANSACCIÓN EXITOSA"
+          content:
+            application/vnd.bancolombia.v2+json:
+              schema:
+                $ref: "#/components/schemas/balanceResponse"
+
+        default:
+          description: "Mensaje de error por defecto"
+          content:
+            application/vnd.bancolombia.v2+json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: object
+                    $ref: "#/components/schemas/Error"
+
+#################################################################################
+# COMPONENTS
+#################################################################################
+components:
+  securitySchemes:
+    bearerAuth:
+      type: "http"
+      scheme: "bearer"
+      bearerFormat: "JWT"
+
+  #################################################################################
+  # SCHEMES
+  #################################################################################
+  schemas:
+
+  #################################################################################
+  # Scheme BALANCE REQUEST
+  #################################################################################
+    balanceRequest:
+      type: object
+      description: "Datos de la cuenta a consultar"
+      required:
+        - account
+      properties:
+        account:
+          type: object
+          properties:
+            type:
+              type: "string"
+              description: "Tipo de cuenta"
+              example: "CUENTA_DE_AHORRO"
+            number:
+              type: "string"
+              description: "Número de la cuenta"
+              maxLength: 16
+              example: "01530951240"
+
+  #################################################################################
+  # Scheme BALANCE RESPONSE
+  #################################################################################
+    balanceResponse:
+      type: object
+      required:
+        - account
+        - status
+      properties:
+        account:
+          type: object
+          required:
+            - balances
+          properties:
+            balances:
+              $ref: "#/components/schemas/balances"
+        status:
+          $ref: "#/components/schemas/status"
+  #################################################################################
+  # Scheme BALANCE INFORMATION FOR RESPONSE
+  #################################################################################
+
+    balances:
+      type: "object"
+      required:
+        - available
+        - availableOverdraftBalance
+        - overdraftValue
+        - availableOverdraftQuota
+        - cash
+        - unavailable_clearing
+        - receivable
+        - blocked
+        - unavailableStartDayclearingStartDay
+        - cashStartDay
+        - pockets
+        - remittanceQuota
+        - agreedRemittanceQuota
+        - remittanceQuotaUsage
+        - normalInterest
+        - suspensionInterest
+      properties:
+        available:
+          type: "string"
+          description: "Saldo disponible"
+          example: "150000000"
+          maxLength: 20
+        availableOverdraftBalance:
+          type: "string"
+          description: "Saldo disponible. + Valor cupo de sobregiro."
+          example: "0"
+          maxLength: 20
+        overdraftValue:
+          type: "string"
+          description: "Valor total del Cupo de Sobregiro."
+          example: ""
+          maxLength: 20
+        availableOverdraftQuota:
+          type: "string"
+          description: "Valor del Cupo de Sobregiro que se puede utilizar."
+          example: ""
+          maxLength: 20
+        cash:
+          type: "string"
+          description: "Saldo en efectivo."
+          example: "250000000000"
+          maxLength: 20  
+        unavailable_clearing:
+          type: "string"
+          description: "Saldo en Canje"
+          example: "15000000"
+          maxLength: 20
+        receivable:
+          type: "string"
+          description: "Saldos en cuentas por cobrar."
+          example: "15000000000"
+          maxLength: 20
+        blocked:
+          type: "string"
+          description: "Saldo bloqueado"
+          example: "00000"
+          maxLength: 20
+        unavailableStartDay_clearingStartDay:
+          type: "string"
+          description: "Saldo en canje al inicio del día."
+          example: "00000"
+          maxLength: 20
+        cashStartDay:
+          type: "string"
+          description: "Saldo en efectivo al inicio del día."
+          example: "180000000000"
+          maxLength: 20  
+        pockets:
+          type: "string"
+          description: "Saldo en bolsillos"
+          example: "20000000"
+          maxLength: 20
+        remittanceQuota:
+          type: "string"
+          description: "Cupo remesas consignadas."
+          example: "20000000"
+          maxLength: 20  
+        agreedRemittanceQuota:
+          type: "string"
+          description: "Cupo remesa negociada."
+          example: "20000000"
+          maxLength: 20  
+        remittanceQuotaUsage:
+          type: "string"
+          description: "Saldo utilizado cupo de la remesa."
+          example: "20000000"
+          maxLength: 20  
+        normalInterest:
+          type: "string"
+          description: "Intereses de sobregiro que tienen menos de 90 días."
+          example: "20000000"
+          maxLength: 20  
+        suspensionInterest:
+          type: "string"
+          description: "Intereses de sobregiro que tienen mas de 90 días o menos dependiendo de la calificación del cliente."
+          example: "20000000"
+          maxLength: 20    
+
+  #################################################################################
+  # Scheme Status
+  #################################################################################
+    status:
+      type: object
+      description: "Estructura general de código de respuesta"
+      properties:
+        status:
+          description: 'Codigo status petición http'
+          type: string
+          example: "200"
+        code:
+          description: 'An application-specific error code, expressed as a string value.'
+          type: string
+          example: "000"
+        title:
+          description: 'A short, human-readable summary of the problem. It **SHOULD NOT** change from occurrence to occurrence of the problem, except for purposes of localization.'
+          type: string
+          example: TRANSACCION EXITOSA
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          type: string
+          example: TRANSACCION EXITOSA
+        severity:
+          description: Servity of error.
+          type: string
+          example: INFO
+  #################################################################################
+  # Scheme Error
+  #################################################################################
+    Error:
+      type: object
+      description: "Estructura general de errores"
+      properties:
+        status:
+          description: 'Codigo status petición http'
+          type: string
+          example: 400
+        code:
+          description: 'An application-specific error code, expressed as a string value.'
+          type: string
+          example: 400
+        title:
+          description: 'A short, human-readable summary of the problem. It **SHOULD NOT** change from occurrence to occurrence of the problem, except for purposes of localization.'
+          type: string
+          example: Lo sentimos, tenemos inconvenientes con nuestros sistemas,
+            nuestro equipo se encuentra trabajando para brindarte una solución.
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          type: string
+          example: Lo sentimos, tenemos inconvenientes con nuestros sistemas, nuestro equipo se encuentra trabajando
+            para brindarte una solución.
+        severity:
+          description: Servity of error.
+          type: string
+          example: ERROR

@@ -1,0 +1,12 @@
+{
+  "Content-Type":"application/json",
+  "Transaction-Tracker":"8348c30c-1296-4882-84b8-d7306205ce26",
+  "Session-Tracker":"15980943-5fcd-4423-a948-b015452d7479",
+  "Authorization": "1eyJhbGciOiJub251ln0.eyJpc3MiOiJqb2UiLAOkiCj.4MTk2=DASDQo",
+  "Channel":"APP",
+  "Date":"2020/09/07",
+  "DateTime":"15:59:00",
+  "Ip":"192.168.164.25",
+  "ClientID":"1017188177",
+  "ClientType":"CC"
+}

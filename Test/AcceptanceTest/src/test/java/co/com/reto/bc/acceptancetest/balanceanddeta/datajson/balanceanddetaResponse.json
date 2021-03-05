@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "categoryRequestInformation": {
+        "accountType": "CUENTA_DE_AHORRO",
+        "accountNumber": "01530951240",
+        "paginationSize": "30",
+        "paginationKey": "1",
+        "transactionStartDate": "2020-01-01",
+        "transactionEndDate": "2020-01-30",
+        "transactionMinAmount": "5000000000",
+        "transactionMaxAmount": "20000000000",
+        "transactionType": "DEBITO",
+        "transactionCheckNumber": "0000000000245358",
+        "transactionGroup": "1",
+        "transactionDescription": "string",
+        "officeCode": "2005678",
+        "officeDescription": ""
+      }
+    }
+  ],
+  "status": {
+    "code": "#string",
+    "title": "#string",
+    "detail": "#string",
+    "severity": "#string"
+  }
+}
